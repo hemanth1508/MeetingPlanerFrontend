@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 import { SocketClientService } from './socket-client.service';
 import { AppService } from './app.service';
 import { SharedModule } from './shared/shared.module';
+import { ModalModule } from 'ngb-modal';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -28,12 +31,14 @@ import { SharedModule } from './shared/shared.module';
     AdminFlowModule,
     NormalFlowModule,
     SharedModule,
+    ModalModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     ToastrModule.forRoot(),
-    FlatpickrModule.forRoot()
+    FlatpickrModule.forRoot(),
+    FontAwesomeModule
   ],
   providers: [SocketClientService, AppService],
   bootstrap: [AppComponent]

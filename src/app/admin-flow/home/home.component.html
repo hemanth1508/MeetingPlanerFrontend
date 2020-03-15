@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-7 col-md-6 col-lg-6 col-xl-7 main">
+            <img src="assets/meetingAdmin.jpg" class="set">
+        </div>
+        <div class="col-12 col-sm-5 col-md-6 col-lg-6 col-xl-5">
+            <div class="row" *ngIf='this.userList'>
+                <button class="col-12 col-xl-12 btn-success btn but " disabled><b>User List</b></button>
+                <div class="col-xl-12  center" *ngFor='let user of this.userList'>
+                    <button class="btn btn-outline-success form-control  name-color "
+                        [routerLink]="['/admin-view',user.userId]"><b>{{user.firstName  |titlecase}}
+                            {{user.lastName}}</b></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -6,15 +6,20 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ToastrModule } from 'ngx-toastr';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
-  declarations: [AdminDashboardComponent],
+  declarations: [AdminDashboardComponent, HomeComponent],
   imports: [
     CommonModule,
+    FontAwesomeModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     ToastrModule.forRoot(),
     FlatpickrModule.forRoot(),
+    FormsModule,
     RouterModule.forChild([
       { path: 'admin/dashboard', component: AdminDashboardComponent }
     ])

@@ -14,4 +14,5 @@ export class AppComponent {
   faApple = faApple;
   faAndroid = faAndroid;
   faGithub = faGithub;
+  options = { autoHide: false };
 }

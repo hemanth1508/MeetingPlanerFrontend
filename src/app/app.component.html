@@ -582,37 +582,35 @@
 </div> -->
 
 
-
 <div>
   <router-outlet></router-outlet>
-</div>
 
+  <div class="container-fluid shadow-lg" id="footer" style="background-color:#24a0ed;">
+    <nav>
+      <div class="container">
+        <br>
+        <div class="row">
+          <div class="col-md-6" style="text-align: center;">
+            <fa-icon [icon]="faAndroid" style="color: white;margin: 10px;" size="2x"></fa-icon>
+            <fa-icon [icon]="faApple" style="margin: 10px;color: white;" size="2x"></fa-icon>
+            <p style="color: white;font-size:small;">Progressive Web App support(PWA)</p>
 
-<div class="container-fluid" id="footer" style="background-color:black;">
-  <nav>
-    <div class="container">
-      <br>
-      <div class="row">
-        <div class="col-md-6" style="text-align: center;">
-          <fa-icon [icon]="faAndroid" style="color: white;margin: 10px;" size="2x"></fa-icon>
-          <fa-icon [icon]="faApple" style="margin: 10px;color: white;" size="2x"></fa-icon>
-          <p style="color: white;font-size:small;">Progressive Web App support(PWA)</p>
-
+          </div>
+          <div class="col-md-6" style="text-align: center;">
+            <fa-icon [icon]="faGithub" style="margin: 10px;color: white;" size="2x"></fa-icon>
+            <p style="color: white; font-size:small;">Source code</p>
+          </div>
         </div>
-        <div class="col-md-6" style="text-align: center;">
-          <fa-icon [icon]="faGithub" style="margin: 10px;color: white;" size="2x"></fa-icon>
-          <p style="color: white; font-size:small;">Get Source code</p>
+
+        <div class="row">
+          <div class="col-md-12">
+            <p style="text-align: center; color: white;margin-bottom: 10px;">
+              <fa-icon [icon]="faCopyright"></fa-icon><b> Copyright 2020-Hemanth Reddy</b>
+            </p>
+          </div>
         </div>
+
       </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <p style="text-align: center; color: white;margin-bottom: 10px;">
-            <fa-icon [icon]="faCopyright"></fa-icon><b> Copyright 2020-Hemanth Reddy</b>
-          </p>
-        </div>
-      </div>
-
-    </div>
-  </nav>
+    </nav>
+  </div>
 </div>

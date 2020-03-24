@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-default" style="background-color: #e3f2fd;overflow: hidden;">
-    <a class="navbar-brand" style="color: #24a0ed;cursor: pointer;">
+<nav class="navbar navbar-expand-lg navbar-default shadow" style="background-color: #e3f2fd;overflow: hidden;">
+    <a class="navbar-brand" style="color: #24a0ed;cursor: pointer;" (click)="goToHome()">
         <fa-icon [icon]="faMeetup"></fa-icon> Meeting planner
     </a>
     <button class="navbar-toggler btn btn-outline-info" type="button" data-toggle="collapse"
@@ -10,7 +10,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"> </ul>
-        <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="margin-right: 20px; border: none;">
+        <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="margin-right: 20px; border: none;"
+            (click)="goToHome()">
             <fa-icon [icon]="faCalendarAlt"></fa-icon> Dashboard <span class="sr-only">(current)</span>
         </button>
         <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="margin-right: 20px; border: none;">
@@ -25,13 +26,8 @@
             <fa-icon [icon]="faUser"></fa-icon> Profile
         </button>
 
-        <!-- <button class="btn btn-outline-dark my-2 my-sm-0" style="margin-right: 20px; border: none;">Github <fa-icon
-                [icon]="faGithub">
-            </fa-icon>
-        </button> -->
-
-        <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="border: none;">Logout <fa-icon
-                [icon]="faPowerOff">
+        <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="border: none;" (click)="LogOut()">Logout
+            <fa-icon [icon]="faPowerOff">
             </fa-icon></button>
 
 
@@ -45,7 +41,7 @@
         <div class="row">
 
             <div class="col-md-4">
-                <div class="btn-group" style="margin: 10px;">
+                <div class="btn-group shadow-lg" style="margin: 10px;">
                     <div class="btn btn-info animate" (click)="setView(CalendarView.Month)"
                         [class.active]="view === CalendarView.Month">
                         Month
@@ -111,7 +107,7 @@
             </div>
 
 
-            <ng-template #modalContent let-close="close">
+            <!-- <ng-template #modalContent let-close="close">
                 <div class="modal-header">
                     <h5 class="modal-title ">Meeting Schedule</h5>
                     <button type="button" class="close" (click)="close()">
@@ -131,15 +127,81 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
                 </div>
-            </ng-template>
+            </ng-template> -->
 
         </div>
     </div>
 
+
+    <ng-template #modalContent let-close="close">
+        <div class="modal-header">
+            <h5 class="modal-title">Meeting Details</h5>
+            <button type="button" class="close" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+                        <img class="card-img-top" src="../../../assets/meeting.jpg" alt="Meeting" style="height:50vh;">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5> Topic </h5>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="card-title">{{modalData?.event.meetingTopic}} by
+                                        {{modalData?.event.hostName}}</h6>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5> Agenda </h5>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="card-title">{{modalData?.event.meetingDescription}}</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5> Participant </h5>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="card-title">{{modalData?.event.participantName}}</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5>Date and Time</h5>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="card-title">{{modalData?.event.meetingStartDate | date: 'medium'}} - {{modalData?.event.meetingEndDate
+                    | date: 'medium'}}</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5>Location </h5>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="card-title">{{modalData?.event.meetingPlace}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
 </div>
 <br>
 
-<div class="container-fluid" style="background: url('../../../assets/brickwall.png')">
+<div class="container-fluid my-style" style="background: url('../../../assets/brickwall.png')">
     <div class="row">
         <div class="col-12 text-center">
             <button type="button" class="btn btn-info animate rounded-pill" (click)="addEvent()" data-toggle="modal"
@@ -162,6 +224,7 @@
         </div>
         <div class="col-0 col-sm-0 col-xl-1"></div>
     </div>
+
     <div class="row" *ngFor='let event of events; let index = index'>
         <div class="col-0 col-sm-0 col-xl-1"></div>
         <div class="col-3 col-sm-4 col-xl-4 border border-success rounded text-center">
@@ -184,11 +247,12 @@
                 view
             </button>
         </div>
-        <div class="col-0 col-sm-0 col-xl-1"></div>
+        <div class="col-0 col-sm-0 col-xl-1"> </div>
 
     </div>
-</div>
 
+</div>
+<br><br>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">

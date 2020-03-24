@@ -7,7 +7,7 @@ import { Cookie } from 'ng2-cookies';
   providedIn: 'root'
 })
 export class AppService {
-  public baseUrl = 'http://plannerapi.ashishmangukiya.com';
+  public baseUrl = 'http://localhost:3000';
   constructor(public _http: HttpClient) { }
 
   public signIn = (data): Observable<any> => {

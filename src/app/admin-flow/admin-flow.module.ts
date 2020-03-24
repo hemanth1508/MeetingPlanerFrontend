@@ -9,6 +9,9 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngb-modal';
 
 
 @NgModule({
@@ -19,9 +22,14 @@ import { HomeComponent } from './home/home.component';
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     ToastrModule.forRoot(),
     FlatpickrModule.forRoot(),
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ModalModule,
     FormsModule,
     RouterModule.forChild([
-      { path: 'admin/dashboard', component: AdminDashboardComponent }
+
+      { path: 'admin-view/:userId', component: AdminDashboardComponent },
+      { path: 'admin-dashboard', component: HomeComponent }
     ])
   ]
 })

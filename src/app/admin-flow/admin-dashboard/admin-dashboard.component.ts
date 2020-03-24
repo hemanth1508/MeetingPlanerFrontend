@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import {
   faPowerOff, faCog, faGift, faBars,
-  faUserCircle, faCalendarAlt, faEnvelope, faPaperPlane
+  faUserCircle, faCalendarAlt, faEnvelope, faPaperPlane, faPencilAlt, faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faMeetup } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -100,6 +100,12 @@ export class AdminDashboardComponent implements OnInit {
   faEnvelope = faEnvelope;
   faPaperPlane = faPaperPlane;
   faMeetup = faMeetup;
+  faPencilAlt = faPencilAlt;
+  faTimes = faTimes;
+
+  public goToHome() {
+    this.router.navigate(['/admin-dashboard']);
+  }
 
   public verifyAdmin() {
     this.socketService.verify().subscribe(
@@ -223,7 +229,7 @@ export class AdminDashboardComponent implements OnInit {
     )
   }
 
-  @ViewChild('modalContent')
+  @ViewChild('modalContent', { static: true })
   modalContent: TemplateRef<any>;
   events: CalendarEvent[] = [];
 
@@ -237,6 +243,24 @@ export class AdminDashboardComponent implements OnInit {
     action: string;
     event: CalendarEvent;
   };
+
+  actions: CalendarEventAction[] = [
+    {
+      label: '<fa-icon class="faPencilAlt"></fa-icon>',
+      a11yLabel: 'Edit',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.handleEvent('Edited', event);
+      }
+    },
+    {
+      label: '<fa-icon class="faTimes"></fa-icon>',
+      a11yLabel: 'Delete',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.events = this.events.filter(iEvent => iEvent !== event);
+        this.handleEvent('Deleted', event);
+      }
+    }
+  ];
 
   refresh: Subject<any> = new Subject();
 
@@ -272,6 +296,7 @@ export class AdminDashboardComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
+    //console.log(this.modalContent)
     this.modalService.open(this.modalContent, { size: 'lg' });
   }
 

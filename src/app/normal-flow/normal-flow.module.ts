@@ -8,11 +8,12 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { RouterModule } from '@angular/router';
 import { ModalModule } from 'ngb-modal';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { NgxPopperModule } from 'ngx-popper';
 
 //import { FormsModule } from '@angular/forms';
-library.add(faCoffee);
 
 
 
@@ -20,13 +21,17 @@ library.add(faCoffee);
   declarations: [DashboardComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FormsModule,
     ModalModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     ToastrModule.forRoot(),
     FlatpickrModule.forRoot(),
     FontAwesomeModule,
+    NgxPopperModule,
     RouterModule.forChild([
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'user-view', component: DashboardComponent }
     ])
   ]
 })

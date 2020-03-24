@@ -4,6 +4,11 @@ import { SocketClientService } from 'src/app/socket-client.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
+import {
+  faPowerOff, faCog, faGift, faBars,
+  faUserCircle, faCalendarAlt, faEnvelope, faPaperPlane, faGrinAlt
+} from '@fortawesome/free-solid-svg-icons';
+import { faMeetup } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -18,15 +23,32 @@ export class HomeComponent implements OnInit {
   public userInfo;
   public onlineUserList;
   constructor(public appService: AppService, public socketService: SocketClientService, public toastr: ToastrService, public router: Router) { }
+
+  faPowerOff = faPowerOff;
+  faCog = faCog;
+  faGift = faGift;
+  faBars = faBars;
+  faUser = faUserCircle;
+  faCalendarAlt = faCalendarAlt;
+  faEnvelope = faEnvelope;
+  faPaperPlane = faPaperPlane;
+  faMeetup = faMeetup;
+  faGrinAlt = faGrinAlt;
+
   ngOnInit() {
     this.userInfo = this.appService.getAdminInfoFromLocalstorage();
-    //  console.log(this.userInfo);
+    //console.log(this.userInfo);
     this.getAllUserList();
     this.getOnlineUserList();
 
 
   }
 
+  public gotoUserList() {
+    let el = document.getElementById('userList');
+    console.log(el)
+    window.location.hash = "#userList";
+  }
   public getOnlineUserList() {
     this.socketService.getAllOnlineUserList().subscribe(
       data => {
@@ -48,11 +70,12 @@ export class HomeComponent implements OnInit {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 userId: user.userId,
+                email: user.email
               }
               this.userList.push(detail);
             }
           }
-          //    console.log(this.userList)
+          console.log(this.userList)
         }
       }
     )

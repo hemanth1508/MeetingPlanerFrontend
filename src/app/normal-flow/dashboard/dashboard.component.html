@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-default" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-default shadow" style="background-color: #e3f2fd;overflow: hidden;">
     <a class="navbar-brand" style="color: #24a0ed;cursor: pointer;">
         <fa-icon [icon]="faMeetup"></fa-icon> Meeting planner
     </a>
@@ -9,32 +9,19 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="hemanthDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="hemanthDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li> -->
-        </ul>
-        <button class="btn btn-outline-info my-2 my-sm-0" style="margin-right: 20px; border: none;">
+        <ul class="navbar-nav mr-auto"> </ul>
+        <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="margin-right: 20px; border: none;">
             <fa-icon [icon]="faCalendarAlt"></fa-icon> Dashboard <span class="sr-only">(current)</span>
         </button>
-        <button class="btn btn-outline-info my-2 my-sm-0" style="margin-right: 20px; border: none;">
+        <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="margin-right: 20px; border: none;">
             About <fa-icon [icon]="faPaperPlane"></fa-icon>
         </button>
 
-        <button class="btn btn-outline-info my-2 my-sm-0" style="margin-right: 20px; border: none;">
+        <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="margin-right: 20px; border: none;">
             Contact <fa-icon [icon]="faEnvelope"></fa-icon>
         </button>
 
-        <button class="btn btn-outline-info my-2 my-sm-0" style="margin-right: 20px; border: none;">
+        <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="margin-right: 20px; border: none;">
             <fa-icon [icon]="faUser"></fa-icon> Profile
         </button>
 
@@ -43,14 +30,15 @@
             </fa-icon>
         </button> -->
 
-        <button class="btn btn-outline-info my-2 my-sm-0" style="border: none;">Logout <fa-icon [icon]="faPowerOff">
+        <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill" style="border: none;" (click)="LogOut()">Logout
+            <fa-icon [icon]="faPowerOff">
             </fa-icon></button>
 
 
     </div>
 </nav>
 
-<div class="container-fluid" style="background: url('../../../assets/brickwall_@2X.png')">
+<div class="container-fluid " style="background: url('../../../assets/brickwall.png')">
     <br>
 
     <div class="container" style="text-align: center;">
@@ -58,15 +46,15 @@
 
             <div class="col-md-4">
                 <div class="btn-group" style="margin: 10px;">
-                    <div class="btn btn-info animate" (click)="setView(CalendarView.Month)"
+                    <div class="btn btn-info animate shadow-lg" (click)="setView(CalendarView.Month)"
                         [class.active]="view === CalendarView.Month">
                         Month
                     </div>
-                    <div class="btn btn-info animate" (click)="setView(CalendarView.Week)"
+                    <div class="btn btn-info animate shadow-lg" (click)="setView(CalendarView.Week)"
                         [class.active]="view === CalendarView.Week">
                         Week
                     </div>
-                    <div class="btn btn-info animate" (click)="setView(CalendarView.Day)"
+                    <div class="btn btn-info animate shadow-lg" (click)="setView(CalendarView.Day)"
                         [class.active]="view === CalendarView.Day">
                         Day
                     </div>
@@ -79,6 +67,7 @@
 
             <div class="col-md-4">
                 <div class="btn-group" style="margin: 10px;">
+
                     <button class="btn btn-info animate" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
                         (viewDateChange)="closeOpenMonthViewDay()">
                         Previous
@@ -92,13 +81,14 @@
                         (viewDateChange)="closeOpenMonthViewDay()">
                         Next
                     </button>
+
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" [ngSwitch]="view"
                 style="margin-top: 5px;margin-bottom: 20px;">
-
                 <!-- month view starts here -->
                 <mwl-calendar-month-view [viewDate]="viewDate" [events]='events' [refresh]="refresh"
                     [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
@@ -106,22 +96,63 @@
                     (eventTimesChanged)="eventTimesChanged($event)" *ngSwitchCase="CalendarView.Month">
                 </mwl-calendar-month-view>
                 <!-- month view ends here -->
-
                 <!-- week view starts here -->
                 <mwl-calendar-week-view [viewDate]="viewDate" [events]='events' [refresh]="refresh"
                     (eventClicked)="handleEvent('Clicked', $event.event)"
                     (eventTimesChanged)="eventTimesChanged($event)" *ngSwitchCase="CalendarView.Week">
                 </mwl-calendar-week-view>
                 <!-- week view ends here -->
-
                 <!-- day view starts here -->
                 <mwl-calendar-day-view [viewDate]="viewDate" [events]='events' [refresh]="refresh"
                     (eventClicked)="handleEvent('Clicked', $event.event)"
                     (eventTimesChanged)="eventTimesChanged($event)" *ngSwitchCase="CalendarView.Day">
                 </mwl-calendar-day-view>
                 <!-- day view ends here -->
-
             </div>
+
+            <ng-template #modalContent id='modal' let-close="close">
+                <div class="modal-header">
+                    <h5 class="modal-title ">created by <b>{{ modalData?.event.adminName |titlecase }}</b> </h5>
+                    <button type="button" class="close" (click)="close()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <b>Meeting Name :</b>
+                    <p>{{ modalData?.event.title }}</p>
+                    <b>Description :</b>
+                    <p>{{modalData?.event.description}}</p>
+                    <b>Starts At :</b>
+                    <p>{{ modalData?.event.start| date:'medium'}}</p>
+                    <b>Ends At :</b>
+                    <p>{{modalData?.event.end| date:'medium'}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+                </div>
+            </ng-template>
+            <ng-template #alert let-close="close">
+                <div class="modal-header">
+                    <h5 class="modal-title ">created by <b>{{ reminder?.data.title |titlecase }}</b> </h5>
+                    <button type="button" class="close" (click)="close()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <b>Meeting Name :</b>
+                    <p>{{ modalData?.event.title }}</p>
+                    <b>Description :</b>
+                    <p>{{modalData?.event.description}}</p>
+                    <b>Starts At :</b>
+                    <p>{{ modalData?.event.start| date:'medium'}}</p>
+                    <b>Ends At :</b>
+                    <p>{{modalData?.event.end| date:'medium'}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+                </div>
+            </ng-template>
+
         </div>
     </div>
 

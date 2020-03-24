@@ -1,19 +1,14 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { isSameDay, isSameMonth } from 'date-fns';
 import {
-  isSameDay,
-  isSameMonth,
-} from 'date-fns';
-
-import {
-  CalendarEvent, CalendarEventAction,
-  CalendarEventTimesChangedEvent, CalendarView
+  CalendarEvent, CalendarEventTimesChangedEvent, CalendarView
 } from 'angular-calendar';
 
+//logos
 import {
   faPowerOff, faCog, faGift, faBars,
   faUserCircle, faCalendarAlt, faEnvelope, faPaperPlane
 } from '@fortawesome/free-solid-svg-icons';
-
 import { faGithub, faMeetup } from '@fortawesome/free-brands-svg-icons';
 
 import { SocketClientService } from 'src/app/socket-client.service';
@@ -41,9 +36,6 @@ export class DashboardComponent implements OnInit {
   public CalendarView = CalendarView;
   public activeDayIsOpen: boolean = true;
   refresh: Subject<any> = new Subject();
-  // public currentYear: number = new Date().getFullYear();
-  // public minDate: Object = new Date(this.currentYear);
-  // public maxDate: Object = new Date(this.currentYear);
   faPowerOff = faPowerOff;
   faCog = faCog;
   faGift = faGift;
@@ -65,11 +57,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.viewDate = new Date();
-    //this.userInfo = this.appService.getUserInfoFromLocalstorage();
-    // this.verifyUser();
-    // this.getAllEvents();
-    // this.messageFromAdmin();
-    // this.getReminder();
+    this.userInfo = this.appService.getUserInfoFromLocalstorage();
+    this.verifyUser();
+    this.getAllEvents();
+    this.messageFromAdmin();
+    this.getReminder();
   }
 
   public getAllEvents() {

@@ -7,7 +7,7 @@ import io from 'socket.io-client';
   providedIn: 'root'
 })
 export class SocketClientService {
-  public baseUurl = 'http://plannerapi.ashishmangukiya.com';
+  public baseUurl = 'http://localhost:3000';
   public socket;
   constructor() {
     this.socket = io(this.baseUurl);

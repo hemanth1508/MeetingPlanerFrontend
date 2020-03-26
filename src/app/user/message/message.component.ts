@@ -1,0 +1,28 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  faUserPlus, faEnvelope, faPaperPlane, faSignInAlt
+} from '@fortawesome/free-solid-svg-icons';
+import { faMeetup } from '@fortawesome/free-brands-svg-icons';
+
+@Component({
+  selector: 'app-message',
+  templateUrl: './message.component.html',
+  styleUrls: ['./message.component.scss']
+})
+export class MessageComponent implements OnInit {
+  faUserPlus = faUserPlus;
+  faMeetup = faMeetup;
+  faPaperPlane = faPaperPlane;
+  faEnvelope = faEnvelope;
+  faSignInAlt = faSignInAlt;
+
+  constructor(public route: Router) { }
+
+  ngOnInit(): void {
+  }
+  public goToHome() {
+    this.route.navigate(['/']);
+  }
+
+}

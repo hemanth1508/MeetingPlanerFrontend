@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LogInComponent } from './log-in/log-in.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { EmailVerifyComponent } from './email-verify/email-verify.component';
-import { InfoComponent } from './info/info.component';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AdminEmailVerifyComponent } from './admin-email-verify/admin-email-verify.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { MessageComponent } from './message/message.component';
+import { VerifyAdminComponent } from './verify-admin/verify-admin.component';
+import { VerifyUserComponent } from './verify-user/verify-user.component';
 
 
 
 
 @NgModule({
-  declarations: [SignUpComponent, LogInComponent, EmailVerifyComponent, InfoComponent, AdminEmailVerifyComponent, ResetPasswordComponent],
+  declarations: [LoginComponent, SignupComponent, ForgotPasswordComponent, MessageComponent, VerifyAdminComponent, VerifyUserComponent],
   imports: [
     CommonModule,
     ToastrModule,
@@ -25,9 +25,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
 
     RouterModule.forChild([
-      { path: 'email-verify/user/:userId/:secretKey', component: EmailVerifyComponent },
-      { path: 'email-verify/admin/:adminId/:secretKey', component: AdminEmailVerifyComponent },
-      { path: 'info', component: InfoComponent }
+      { path: 'email-verify/user/:userId/:secretKey', component: VerifyUserComponent },
+      { path: 'email-verify/admin/:adminId/:secretKey', component: VerifyAdminComponent },
+      { path: 'message', component: MessageComponent }
     ])
   ]
 })

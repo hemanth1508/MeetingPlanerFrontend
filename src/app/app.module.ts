@@ -8,16 +8,15 @@ import { AppComponent } from './app.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ToastrModule } from 'ngx-toastr';
-import { FlatpickrModule } from 'angularx-flatpickr'
 import { UserModule } from './user/user.module';
-import { AdminFlowModule } from './admin-flow/admin-flow.module';
-import { NormalFlowModule } from './normal-flow/normal-flow.module';
 import { FormsModule } from '@angular/forms';
 import { SocketClientService } from './socket-client.service';
 import { AppService } from './app.service';
-import { SharedModule } from './shared/shared.module';
-import { ModalModule } from 'ngb-modal';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { HomeModule } from './home/home.module';
 
 
 @NgModule({
@@ -28,17 +27,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     AppRoutingModule,
     UserModule,
-    AdminFlowModule,
-    NormalFlowModule,
-    SharedModule,
-    ModalModule,
+    HomeModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     ToastrModule.forRoot(),
-    FlatpickrModule.forRoot(),
-    FontAwesomeModule
+    FontAwesomeModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [SocketClientService, AppService],
   bootstrap: [AppComponent]

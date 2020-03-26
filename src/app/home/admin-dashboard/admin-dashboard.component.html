@@ -1,0 +1,276 @@
+<!-- Navbar starts here -->
+<nav class="navbar navbar-expand-lg navbar-default shadow" style="background-color: #e3f2fd;overflow: hidden;">
+    <a class="navbar-brand" style="color: #24a0ed;cursor: pointer;" (click)="goToHome()">
+        <fa-icon [icon]="faMeetup"></fa-icon> Meeting planner
+    </a>
+
+    <button class="navbar-toggler btn btn-outline-info" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <fa-icon [icon]="faBars"></fa-icon>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto"> </ul>
+        <button class="btn btn-outline-info colorbutton my-2 my-sm-0 rounded-pill"
+            style="margin-right: 20px; border: none;" (click)="goToHome()">
+            <fa-icon [icon]="faHome"></fa-icon> Home <span class="sr-only">(current)</span>
+        </button>
+        <button class="btn btn-outline-info colorbutton my-2 my-sm-0 rounded-pill"
+            style="margin-right: 20px; border: none;" (click)="setComponentView('calendar')">
+            <fa-icon [icon]="faCalendarAlt"></fa-icon> Dashboard <span class="sr-only">(current)</span>
+        </button>
+        <button class="btn btn-outline-info colorbutton my-2 my-sm-0 rounded-pill"
+            style="margin-right: 20px; border: none;" (click)="setComponentView('events')">
+            <fa-icon [icon]="faCalendarCheck"></fa-icon> Events <span class="sr-only">(current)</span>
+        </button>
+        <button class="btn btn-outline-info colorbutton my-2 my-sm-0 rounded-pill"
+            style="margin-right: 20px; border: none;">
+            <fa-icon [icon]="faUser"></fa-icon> Profile
+        </button>
+        <button class="btn btn-outline-info colorbutton my-2 my-sm-0 rounded-pill" style="border: none;"
+            (click)="LogOut()">Logout
+            <fa-icon [icon]="faPowerOff">
+            </fa-icon></button>
+    </div>
+</nav>
+<!-- Navbar ends here -->
+
+
+<div>
+    <!-- calendar view starts here -->
+    <div class="container-fluid " style="background: url('../../../assets/brickwall.png')">
+        <br>
+        <div class="container" style="text-align: center;">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="btn-group shadow-lg" style="margin: 10px;">
+                        <div class="btn btn-info animate" (click)="setView(CalendarView.Month)"
+                            [class.active]="view === CalendarView.Month">
+                            Month</div>
+                        <div class="btn btn-info animate" (click)="setView(CalendarView.Week)"
+                            [class.active]="view === CalendarView.Week">
+                            Week</div>
+                        <div class="btn btn-info animate" (click)="setView(CalendarView.Day)"
+                            [class.active]="view === CalendarView.Day">
+                            Day</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="btn-group" style="margin: 10px;">
+                        <button class="btn btn-info animate" mwlCalendarPreviousView [view]="view"
+                            [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                            Previous
+                        </button>
+                        <button class="btn btn-outline-secondary animate" mwlCalendarToday [(viewDate)]="viewDate">
+                            Today
+                        </button>
+                        <button class="btn btn-info animate" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+                            (viewDateChange)="closeOpenMonthViewDay()">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" [ngSwitch]="view"
+                    style="margin-top: 5px;margin-bottom: 20px;">
+                    <!-- month view starts here -->
+                    <mwl-calendar-month-view [viewDate]="viewDate" [events]='events' [refresh]="refresh"
+                        [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
+                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                        (eventTimesChanged)="eventTimesChanged($event)" *ngSwitchCase="CalendarView.Month">
+                    </mwl-calendar-month-view>
+                    <!-- month view ends here -->
+                    <!-- week view starts here -->
+                    <mwl-calendar-week-view [viewDate]="viewDate" [events]='events' [refresh]="refresh"
+                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                        (eventTimesChanged)="eventTimesChanged($event)" *ngSwitchCase="CalendarView.Week">
+                    </mwl-calendar-week-view>
+                    <!-- week view ends here -->
+                    <!-- day view starts here -->
+                    <mwl-calendar-day-view [viewDate]="viewDate" [events]='events' [refresh]="refresh"
+                        (eventClicked)="handleEvent('Clicked', $event.event)"
+                        (eventTimesChanged)="eventTimesChanged($event)" *ngSwitchCase="CalendarView.Day">
+                    </mwl-calendar-day-view>
+                    <!-- day view ends here -->
+                </div>
+                <!-- Event model starts here -->
+                <ng-template #modalContent let-close="close">
+                    <div class="modal-header" style="background: #24a0ed;">
+                        <h5 class="modal-title " style="color: #e3f2fd;">
+                            <fa-icon style="color: #e3f2fd;" [icon]="faCalendarCheck"></fa-icon> Meeting Schedule
+                        </h5>
+                        <button type="button" style="color: #e3f2fd;" class="close" (click)="close()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info" role="alert">
+                            <b class="inline-block">Meeting Name : </b>
+                            <p class="d-inline">{{ modalData?.event.title }}</p>
+                        </div>
+                        <div class="alert alert-info" role="alert">
+                            <b class="inline-block">Description : </b>
+                            <p class="d-inline">{{modalData?.event.description}}</p>
+                        </div>
+                        <div class="alert alert-info" role="alert">
+                            <b class="inline-block">Starts At : </b>
+                            <p class="d-inline">{{ modalData?.event.start| date:'medium'}}</p>
+                        </div>
+                        <div class="alert alert-info" role="alert">
+                            <b class="inline-block">Ends At : </b>
+                            <p class="d-inline">{{modalData?.event.end| date:'medium'}}</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="background: #e3f2fd;">
+                        <button type="button" class="btn btn-outline-info colorbutton"
+                            (click)="close()"><b>OK</b></button>
+                    </div>
+                </ng-template>
+                <!-- Event model ends here -->
+            </div>
+        </div>
+    </div>
+    <!-- calendar view ends here -->
+    <br>
+
+    <div class="container-fluid" style="background: url('../../../assets/brickwall.png')">
+
+        <div class="container bg-light my-style">
+            <br>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="button" class="btn btn-outline-info colorbutton animate rounded-pill"
+                        (click)="addEvent()" data-toggle="modal" data-target="#exampleModal">
+                        <b>create new event</b>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <div class="row" *ngIf='!events.length'>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 extra text-center">
+                    <p><b>No events right now. create new event!</b></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-4 col-xl-4" *ngFor='let event of events; let index = index'>
+
+                    <div class=" center name-color cart animate">
+                        <!-- style="background:#e3f2fd;color:#24a0ed;padding:10px;margin:10px;" -->
+                        <h5>{{event.title}} </h5>
+                        <p><b>start :</b> {{event.start | date:'medium'}}</p>
+                        <p><b>end :</b> {{event.end | date:'medium'}}</p>
+                        <button class="btn btn-outline-info colorbutton" (click)='dynamic(event)' data-toggle="modal"
+                            data-target="#example">Edit</button>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+        </div>
+    </div>
+    <br><br>
+
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #24a0ed;">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #e3f2fd;"><b>Create new Meeting</b></h5>
+                <button type="button" style="color: #e3f2fd;" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body " *ngIf='event'>
+                <label for="name"><b>Meeting Name :</b></label>
+                <input id="name" type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
+                <br>
+                <label for="description"><b>Description :</b></label>
+                <textarea id='description' [(ngModel)]="event.description" class="form-control" rows="1"
+                    (keyup)="refresh.next()" required></textarea>
+                <br>
+                <label for="primary"><b>Primary Color :</b>&nbsp;&nbsp;</label>
+                <input id="primary" type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()">
+                <br>
+                <label for="secondary"><b>Secondary Color :</b>&nbsp;&nbsp;</label>
+                <input id="secondary" type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()">
+                <br>
+                <label for="start"><b>Starts At :</b>&nbsp;&nbsp;</label>
+                <input id="start" class="form-control" type="text" static="true" [(ngModel)]="event.start"
+                    [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                <owl-date-time #dt1></owl-date-time>
+                <br>
+                <br>
+                <label for="end"><b>Ends At :</b> &nbsp;&nbsp;</label>
+                <input id="end" class="form-control" type="text" static="true" [(ngModel)]="event.end"
+                    [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Date Time">
+                <owl-date-time #dt2></owl-date-time>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><b>Close</b></button>
+                <button class="btn btn-outline-info colorbutton" data-dismiss="modal"
+                    (click)="sendToUSer(event); refresh.next()"><b>Send</b>
+                </button>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+
+<div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #24a0ed;">
+                <h5 class="modal-title" style="color: #e3f2fd;" id="exampleModalLabel"><b>View Meeting Schedule</b>
+                </h5>
+                <button type="button" style="color: #e3f2fd;" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body " *ngIf='currentEvent'>
+                <label for="name"><b>Meeting Name :</b></label>
+                <input id="name" type="text" class="form-control" [(ngModel)]="currentEvent.title"
+                    (keyup)="refresh.next()">
+                <br>
+                <label for="description"><b>Description :</b></label>
+                <textarea id='description' [(ngModel)]="currentEvent.description" class="form-control" rows="1"
+                    (keyup)="refresh.next()" required></textarea>
+                <br>
+                <label for="primary"><b>primary color :</b>&nbsp;&nbsp;</label>
+                <input id="primary" type="color" [(ngModel)]="currentEvent.color.primary" (change)="refresh.next()">
+                <br>
+                <label for="secondary"><b>secondary color :</b>&nbsp;&nbsp;</label>
+                <input id="secondary" type="color" [(ngModel)]="currentEvent.color.secondary" (change)="refresh.next()">
+                <br>
+                <label for="start"><b>Starts At :</b>&nbsp;&nbsp;</label>
+                <input id="start" class="form-control" type="text" static="true" [(ngModel)]="currentEvent.start"
+                    [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3" placeholder="Not set">
+                <owl-date-time #dt3></owl-date-time>
+                <br>
+                <br>
+                <label for="end"><b>Ends At :</b>&nbsp;&nbsp;</label>
+                <input id="end" class="form-control" type="text" static="true" [(ngModel)]="currentEvent.end"
+                    [owlDateTime]="dt4" [owlDateTimeTrigger]="dt4" placeholder="Not set">
+                <owl-date-time #dt4></owl-date-time>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary " data-dismiss="modal"><b>Close</b></button>
+                <button class="btn btn-outline-info colorbutton " data-dismiss="modal"
+                    (click)="sendToUSer(currentEvent); refresh.next()"><b>update</b></button>
+                <button class="btn btn-outline-danger " data-dismiss="modal"
+                    (click)="deleteEvent(currentEvent); refresh.next()"><b>Delete</b></button>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>

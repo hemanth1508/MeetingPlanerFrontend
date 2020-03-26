@@ -8,6 +8,7 @@ import { Cookie } from 'ng2-cookies';
 })
 export class AppService {
   public baseUrl = 'http://localhost:3000';
+  //public baseurl = 'http://http://ec2-35-154-221-80.ap-south-1.compute.amazonaws.com:3000';
   constructor(public _http: HttpClient) { }
 
   public signIn = (data): Observable<any> => {

@@ -7,8 +7,8 @@ import { Cookie } from 'ng2-cookies';
   providedIn: 'root'
 })
 export class AppService {
-  //public baseUrl = '/backendapi';
-  public baseUrl = 'http://localhost:3000';
+  public baseUrl = '/backendapi';
+  //public baseUrl = 'http://localhost:3000';
   constructor(public _http: HttpClient) { }
 
   public signIn = (data): Observable<any> => {

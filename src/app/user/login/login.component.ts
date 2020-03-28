@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   faSignInAlt = faSignInAlt;
   faBars = faBars;
 
+  meetingImage = { url: 'https://edwisor-bucket.s3.ap-south-1.amazonaws.com/meeting/meeting.jpg', show: false };
   constructor(public appService: AppService, public router: Router, private toastr: ToastrService) {
 
   }

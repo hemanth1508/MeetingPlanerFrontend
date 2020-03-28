@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   public userList = [];
   public userInfo;
   public onlineUserList;
+  adminImage = { url: 'https://edwisor-bucket.s3.ap-south-1.amazonaws.com/meeting/admin.jpg', show: false };
   constructor(public appService: AppService, public socketService: SocketClientService, public toastr: ToastrService, public router: Router) { }
 
   faPowerOff = faPowerOff;

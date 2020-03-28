@@ -17,6 +17,7 @@ export class MessageComponent implements OnInit {
   faEnvelope = faEnvelope;
   faSignInAlt = faSignInAlt;
 
+  meetingImage = { url: 'https://edwisor-bucket.s3.ap-south-1.amazonaws.com/meeting/meeting.jpg', show: false };
   constructor(public route: Router) { }
 
   ngOnInit(): void {

@@ -23,7 +23,9 @@
     <div class="container bg-light set" style="height: 100%;">
 
         <div class="row">
-            <img src="assets/admin.jpg">
+            <div (deferLoad)="adminImage.show = true">
+                <img src="adminImage.url">
+            </div>
             <div class="text-block">
                 <h4>Welcome {{userInfo.userName}} <fa-icon [icon]="faGrinAlt"></fa-icon>
                 </h4>

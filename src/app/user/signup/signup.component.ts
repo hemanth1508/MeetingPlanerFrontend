@@ -34,6 +34,7 @@ export class SignupComponent implements OnInit {
   public countryCode: string;
   public countryName: string;
 
+  signupImage = { url: 'https://edwisor-bucket.s3.ap-south-1.amazonaws.com/meeting/signup.jpg', show: false };
   constructor(public appService: AppService, public router: Router, private toastr: ToastrService) { }
   faSignInAlt = faSignInAlt;
   faUserPlus = faUserPlus;

@@ -11,6 +11,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { MessageComponent } from './message/message.component';
 import { VerifyAdminComponent } from './verify-admin/verify-admin.component';
 import { VerifyUserComponent } from './verify-user/verify-user.component';
+import { DeferLoadModule } from '@trademe/ng-defer-load';
 
 
 
@@ -22,6 +23,7 @@ import { VerifyUserComponent } from './verify-user/verify-user.component';
     ToastrModule,
     FormsModule,
     FontAwesomeModule,
+    DeferLoadModule,
     BrowserAnimationsModule,
 
     RouterModule.forChild([

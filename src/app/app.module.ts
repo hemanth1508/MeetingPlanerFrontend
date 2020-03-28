@@ -17,6 +17,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HomeModule } from './home/home.module';
+import { DeferLoadModule } from '@trademe/ng-defer-load';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { HomeModule } from './home/home.module';
     HomeModule,
     HttpClientModule,
     FormsModule,
+    DeferLoadModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     ToastrModule.forRoot(),

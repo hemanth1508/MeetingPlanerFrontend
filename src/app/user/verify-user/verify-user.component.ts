@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import {
-  faUserPlus, faEnvelope, faPaperPlane, faSignInAlt
+  faHome, faSignInAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { faMeetup } from '@fortawesome/free-brands-svg-icons';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
@@ -19,13 +19,14 @@ export class VerifyUserComponent implements OnInit {
   public userId;
   public secretId;
   public simple;
+  faMeetup = faMeetup;
+  faHome = faHome;
+
+  meetingImage = { url: 'https://edwisor-bucket.s3.ap-south-1.amazonaws.com/meeting/meeting.jpg', show: false };
 
   constructor(public appService: AppService, public active: ActivatedRoute, public router: Router, private toastr: ToastrService) {
   }
-  faUserPlus = faUserPlus;
-  faMeetup = faMeetup;
-  faPaperPlane = faPaperPlane;
-  faEnvelope = faEnvelope;
+
   faSignInAlt = faSignInAlt;
   ngOnInit(): void {
     this.userId = this.active.snapshot.paramMap.get('userId');

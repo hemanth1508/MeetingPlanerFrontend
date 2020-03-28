@@ -7,9 +7,8 @@ import io from 'socket.io-client';
   providedIn: 'root'
 })
 export class SocketClientService {
-  public baseurl = 'http://localhost:3000';
-  //public baseurl = '/socket';
-  //public baseurl = 'http://ec2-35-154-221-80.ap-south-1.compute.amazonaws.com:3000';
+  //public baseurl = 'http://localhost:3000';
+  public baseurl = 'http://ec2-35-154-221-80.ap-south-1.compute.amazonaws.com:3000';
   public socket;
   constructor() {
     this.socket = io(this.baseurl);

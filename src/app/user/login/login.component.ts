@@ -9,24 +9,17 @@ import { faMeetup } from '@fortawesome/free-brands-svg-icons';
 
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AppService } from 'src/app/app.service';
-import { trigger, transition, useAnimation } from '@angular/animations';
-import { slideInLeft } from 'ng-animate';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  animations: [
-    trigger('slideInLeft', [transition('* => *', useAnimation(slideInLeft), { params: { timing: .3, delay: 0 } })])
-  ]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
   public email: any;
   public password: any;
   public checked = false;
-
-  slideInLeft: any;
 
   faLock = faLock;
   faUserPlus = faUserPlus;

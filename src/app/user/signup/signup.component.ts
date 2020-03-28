@@ -8,15 +8,11 @@ import {
 import { faMeetup } from '@fortawesome/free-brands-svg-icons';
 
 import { trigger, transition, useAnimation } from '@angular/animations';
-import { slideInLeft } from 'ng-animate';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss'],
-  animations: [
-    trigger('slideInLeft', [transition('* => *', useAnimation(slideInLeft), { params: { timing: .3, delay: 0 } })])
-  ]
+  styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
 
@@ -40,7 +36,6 @@ export class SignupComponent implements OnInit {
   faUserPlus = faUserPlus;
   faBars = faBars;
   faMeetup = faMeetup;
-  slideInLeft: any;
 
   ngOnInit() {
     this.getCountries();

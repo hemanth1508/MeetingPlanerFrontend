@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
 import { SocketClientService } from './socket-client.service';
 import { AppService } from './app.service';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HomeModule } from './home/home.module';
@@ -19,11 +18,10 @@ import { HomeModule } from './home/home.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     UserModule,
     HomeModule,
-    BrowserAnimationsModule,
-    FontAwesomeModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [SocketClientService, AppService],

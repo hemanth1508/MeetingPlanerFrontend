@@ -14,6 +14,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxPopperModule } from 'ngx-popper';
 import { RouterModule } from '@angular/router';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DeferLoadModule } from '@trademe/ng-defer-load';
 
 
 
@@ -30,6 +31,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     FontAwesomeModule,
     NgxPopperModule,
     OwlDateTimeModule,
+    DeferLoadModule,
     OwlNativeDateTimeModule,
 
     RouterModule.forChild([

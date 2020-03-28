@@ -9,20 +9,7 @@
     font-family: 'Times New Roman', Times, serif;
     color: #24a0ed;
   }
-  .set{
-    border-radius:15px;
-    margin:auto;  
-    -webkit-box-shadow: 0px 2px 20px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 20px 1px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 20px 1px rgba(0,0,0,0.75);
-  }
-  .dec{
-    text-decoration: none;
-    color: #24a0ed;
-  }
-  .dec:hover{
-    color: green;
-  }
+ 
   
   img{
     width: 100%;
@@ -51,5 +38,12 @@
   .animate:hover{
     transform: translateY(-1px);
     
+  }
+  .dec{
+    text-decoration: none;
+    color: #24a0ed;
+  }
+  .dec:hover{
+    color: green;
   }
   

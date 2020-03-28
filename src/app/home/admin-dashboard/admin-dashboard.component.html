@@ -39,7 +39,7 @@
 
 <div>
     <!-- calendar view starts here -->
-    <div class="container-fluid " style="background: url('../../../assets/brickwall.png')">
+    <div class="container-fluid ">
         <br>
         <div class="container" style="text-align: center;">
             <div class="row">
@@ -141,7 +141,7 @@
     <!-- calendar view ends here -->
     <br>
 
-    <div class="container-fluid" style="background: url('../../../assets/brickwall.png')">
+    <div class="container-fluid">
 
         <div class="container bg-light my-style">
             <br>
@@ -164,12 +164,11 @@
                 <div class="col-md-6 col-lg-4 col-xl-4" *ngFor='let event of events; let index = index'>
 
                     <div class=" center name-color cart animate">
-                        <!-- style="background:#e3f2fd;color:#24a0ed;padding:10px;margin:10px;" -->
                         <h5>{{event.title}} </h5>
                         <p><b>start :</b> {{event.start | date:'medium'}}</p>
                         <p><b>end :</b> {{event.end | date:'medium'}}</p>
-                        <button class="btn btn-outline-info colorbutton" (click)='dynamic(event)' data-toggle="modal"
-                            data-target="#example">Edit</button>
+                        <button class="btn btn-outline-info colorbutton rounded-pill" (click)='dynamic(event)'
+                            data-toggle="modal" data-target="#example"><b>Update</b></button>
                     </div>
                 </div>
 
@@ -192,31 +191,39 @@
                 </button>
             </div>
             <div class="modal-body " *ngIf='event'>
-                <label for="name"><b>Meeting Name :</b></label>
-                <input id="name" type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
-                <br>
-                <label for="description"><b>Description :</b></label>
-                <textarea id='description' [(ngModel)]="event.description" class="form-control" rows="1"
-                    (keyup)="refresh.next()" required></textarea>
-                <br>
-                <label for="primary"><b>Primary Color :</b>&nbsp;&nbsp;</label>
-                <input id="primary" type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()">
-                <br>
-                <label for="secondary"><b>Secondary Color :</b>&nbsp;&nbsp;</label>
-                <input id="secondary" type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()">
-                <br>
-                <label for="start"><b>Starts At :</b>&nbsp;&nbsp;</label>
-                <input id="start" class="form-control" type="text" static="true" [(ngModel)]="event.start"
-                    [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
-                <owl-date-time #dt1></owl-date-time>
-                <br>
-                <br>
-                <label for="end"><b>Ends At :</b> &nbsp;&nbsp;</label>
-                <input id="end" class="form-control" type="text" static="true" [(ngModel)]="event.end"
-                    [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Date Time">
-                <owl-date-time #dt2></owl-date-time>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Meeting Name : </b>
+                    <input id="name" type="text" class="form-control d-inline" [(ngModel)]="event.title"
+                        (keyup)="refresh.next()">
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Description : </b>
+                    <textarea id='description' [(ngModel)]="event.description" class="form-control d-inline" rows="2"
+                        (keyup)="refresh.next()" required></textarea>
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Primary Color : </b>
+                    <input id="primary" class="d-inline" type="color" [(ngModel)]="event.color.primary"
+                        (change)="refresh.next()">
+                    <b class="inline-block" style="margin-left: 15px;">Secondary Color : </b>
+                    <input id="secondary" class="d-inline" type="color" [(ngModel)]="event.color.secondary"
+                        (change)="refresh.next()">
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Starts At : </b>
+                    <input id="start" class="form-control inline-block" type="text" static="true"
+                        [(ngModel)]="event.start" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"
+                        placeholder="Date Time">
+                    <owl-date-time #dt1></owl-date-time>
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Ends At : </b>
+                    <input id="end" class="form-control" type="text" static="true" [(ngModel)]="event.end"
+                        [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Date Time">
+                    <owl-date-time #dt2></owl-date-time>
+                </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="background: #e3f2fd;">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><b>Close</b></button>
                 <button class="btn btn-outline-info colorbutton" data-dismiss="modal"
                     (click)="sendToUSer(event); refresh.next()"><b>Send</b>
@@ -238,39 +245,46 @@
                 </button>
             </div>
             <div class="modal-body " *ngIf='currentEvent'>
-                <label for="name"><b>Meeting Name :</b></label>
-                <input id="name" type="text" class="form-control" [(ngModel)]="currentEvent.title"
-                    (keyup)="refresh.next()">
-                <br>
-                <label for="description"><b>Description :</b></label>
-                <textarea id='description' [(ngModel)]="currentEvent.description" class="form-control" rows="1"
-                    (keyup)="refresh.next()" required></textarea>
-                <br>
-                <label for="primary"><b>primary color :</b>&nbsp;&nbsp;</label>
-                <input id="primary" type="color" [(ngModel)]="currentEvent.color.primary" (change)="refresh.next()">
-                <br>
-                <label for="secondary"><b>secondary color :</b>&nbsp;&nbsp;</label>
-                <input id="secondary" type="color" [(ngModel)]="currentEvent.color.secondary" (change)="refresh.next()">
-                <br>
-                <label for="start"><b>Starts At :</b>&nbsp;&nbsp;</label>
-                <input id="start" class="form-control" type="text" static="true" [(ngModel)]="currentEvent.start"
-                    [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3" placeholder="Not set">
-                <owl-date-time #dt3></owl-date-time>
-                <br>
-                <br>
-                <label for="end"><b>Ends At :</b>&nbsp;&nbsp;</label>
-                <input id="end" class="form-control" type="text" static="true" [(ngModel)]="currentEvent.end"
-                    [owlDateTime]="dt4" [owlDateTimeTrigger]="dt4" placeholder="Not set">
-                <owl-date-time #dt4></owl-date-time>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Meeting Name : </b>
+                    <input id="name" type="text" class="form-control d-inline" [(ngModel)]="currentEvent.title"
+                        (keyup)="refresh.next()">
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Description : </b>
+                    <textarea id='description' [(ngModel)]="currentEvent.description" class="form-control d-inline"
+                        rows="2" (keyup)="refresh.next()" required></textarea>
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Primary Color : </b>
+                    <input id="primary" class="d-inline" type="color" [(ngModel)]="currentEvent.color.primary"
+                        (change)="refresh.next()">
+                    <b class="inline-block" style="margin-left: 15px;">Secondary Color : </b>
+                    <input id="secondary" class="d-inline" type="color" [(ngModel)]="currentEvent.color.secondary"
+                        (change)="refresh.next()">
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Starts At : </b>
+                    <input id="start" class="form-control inline-block" type="text" static="true"
+                        [(ngModel)]="currentEvent.start" [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3"
+                        placeholder="Not set">
+                    <owl-date-time #dt3></owl-date-time>
+                    <owl-date-time #dt1></owl-date-time>
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <b class="inline-block">Ends At : </b>
+                    <input id="end" class="form-control" type="text" static="true" [(ngModel)]="currentEvent.end"
+                        [owlDateTime]="dt4" [owlDateTimeTrigger]="dt4" placeholder="Not set">
+                    <owl-date-time #dt4></owl-date-time>
+                </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="background: #e3f2fd;">
                 <button type="button" class="btn btn-outline-secondary " data-dismiss="modal"><b>Close</b></button>
                 <button class="btn btn-outline-info colorbutton " data-dismiss="modal"
                     (click)="sendToUSer(currentEvent); refresh.next()"><b>update</b></button>
                 <button class="btn btn-outline-danger " data-dismiss="modal"
                     (click)="deleteEvent(currentEvent); refresh.next()"><b>Delete</b></button>
             </div>
-            <br>
         </div>
     </div>
 </div>

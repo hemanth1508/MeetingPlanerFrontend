@@ -1,21 +1,11 @@
 import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import {
-  faPowerOff, faCog, faGift, faBars,
-  faUserCircle, faCalendarAlt, faEnvelope,
-  faPaperPlane, faPencilAlt, faTimes, faHome, faCalendarCheck
+  faPowerOff, faBars,
+  faUserCircle, faPencilAlt, faTimes,
+  faHome, faCalendarCheck
 } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faMeetup } from '@fortawesome/free-brands-svg-icons';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
-  isToday
-} from 'date-fns';
+import { faMeetup } from '@fortawesome/free-brands-svg-icons';
+import { endOfDay, isSameDay, isSameMonth, isToday } from 'date-fns';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -37,7 +27,7 @@ const colors: any = {
     secondary: '#FAE3E3'
   },
   blue: {
-    primary: '#1e90ff',
+    primary: '#24a0ed',
     secondary: '#D1E8FF'
   },
   yellow: {
@@ -93,14 +83,9 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   faPowerOff = faPowerOff;
-  faCog = faCog;
-  faGift = faGift;
-  faGithub = faGithub;
   faBars = faBars;
   faUser = faUserCircle;
-  faCalendarAlt = faCalendarAlt;
-  faEnvelope = faEnvelope;
-  faPaperPlane = faPaperPlane;
+
   faMeetup = faMeetup;
   faPencilAlt = faPencilAlt;
   faTimes = faTimes;

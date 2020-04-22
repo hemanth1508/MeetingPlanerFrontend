@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import {
   faPowerOff, faBars,
-  faUserCircle, faPencilAlt, faTimes,
-  faHome, faCalendarCheck
+  faUserCircle, faHome, faCalendarCheck, faEdit, faTrashAlt, faCalendarAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { faMeetup } from '@fortawesome/free-brands-svg-icons';
 import { endOfDay, isSameDay, isSameMonth, isToday } from 'date-fns';
@@ -73,10 +72,7 @@ export class AdminDashboardComponent implements OnInit {
 
     this.getOnlineUserList();
     this.adminInfo = this.appService.getAdminInfoFromLocalstorage();
-    // console.log(this.adminInfo);
-    //  console.log(this.adminInfo.email)
     this.adminUserName = this.adminInfo.userName;
-    //  console.log(this.userId);
     this.getAllEvents();
     this.stopReminder();
     this.getErrors();
@@ -87,10 +83,11 @@ export class AdminDashboardComponent implements OnInit {
   faUser = faUserCircle;
 
   faMeetup = faMeetup;
-  faPencilAlt = faPencilAlt;
-  faTimes = faTimes;
   faHome = faHome;
   faCalendarCheck = faCalendarCheck;
+  faEdit = faEdit;
+  faTrashAlt = faTrashAlt;
+  faCalendarAlt = faCalendarAlt;
 
   public goToHome() {
     this.router.navigate(['/admin-dashboard']);
@@ -99,7 +96,6 @@ export class AdminDashboardComponent implements OnInit {
   public verifyAdmin() {
     this.socketService.verify().subscribe(
       data => {
-        //     console.log('verified admin');
         this.socketService.setAdmin();
       }
     )
@@ -119,7 +115,6 @@ export class AdminDashboardComponent implements OnInit {
       data => {
         if (data['status'] == 200) {
           this.userInfo = data['data'];
-          //     console.log(this.userInfo)
         }
 
       }
@@ -143,17 +138,13 @@ export class AdminDashboardComponent implements OnInit {
         if (difference > 0 && difference < 180000) {
           for (let user in this.userList) {
             if (user == this.userId) {
-              //        console.log(difference);
               meeting['alert'] = true;
-              //this.toastr.success(`reminder for "${meeting.title}" has been sent to ${meeting.userName}`)
               this.socketService.sendReminder(meeting);
-              //        console.log(meeting);
               flag = true;
             }
           }
           if (flag == false) {
             this.socketService.sendReminderOffline(meeting);
-            //       console.log(meeting);
           }
 
 
@@ -171,7 +162,6 @@ export class AdminDashboardComponent implements OnInit {
       data => {
         if (data['status'] == 200) {
           for (let event of data['data']) {
-            //     console.log(event);
             event.start = new Date(event.start);
             event.end = new Date(event.end);
             this.events.push(event);
@@ -189,7 +179,6 @@ export class AdminDashboardComponent implements OnInit {
     this.socketService.getAllOnlineUserList().subscribe(
       data => {
         this.userList = data;
-        //  console.log(this.userList);        
       }
     )
 
@@ -205,14 +194,14 @@ export class AdminDashboardComponent implements OnInit {
           this.toastr.success(data.message);
           this.socketService.disconnect();
           setTimeout(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/login']);
           }, 1000)
         }
       },
       (err) => {
         this.toastr.error(err.error.message);
         setTimeout(() => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
         }, 2000)
       }
     )
@@ -285,7 +274,6 @@ export class AdminDashboardComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    //console.log(this.modalContent)
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
@@ -310,17 +298,11 @@ export class AdminDashboardComponent implements OnInit {
       }
     };
     this.refresh.next();
-    //console.log(this.event);    
-
-
   }
   public dynamic(event) {
-    //  console.log(event)
     this.currentEvent = event;
-
   }
   public sendToUSer(event) {
-    //   console.log(event)
 
     if (event.notificationId) {
       event.alert = false;

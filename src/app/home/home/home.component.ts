@@ -5,9 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import {
-  faPowerOff, faCog, faGift, faBars,
-  faUserCircle, faCalendarAlt, faEnvelope,
-  faPaperPlane, faGrinAlt
+  faPowerOff, faBars,
+  faUserCircle, faGrinAlt, faUser
 } from '@fortawesome/free-solid-svg-icons';
 import { faMeetup } from '@fortawesome/free-brands-svg-icons';
 
@@ -23,38 +22,28 @@ export class HomeComponent implements OnInit {
   public userList = [];
   public userInfo;
   public onlineUserList;
+  url: string = "https://hemanth1508.s3.ap-south-1.amazonaws.com/";
   image = { url: 'https://edwisor-bucket.s3.ap-south-1.amazonaws.com/meeting/admin.jpg', show: false };
   constructor(public appService: AppService, public socketService: SocketClientService, public toastr: ToastrService, public router: Router) { }
 
-  faPowerOff = faPowerOff;
-  faCog = faCog;
-  faGift = faGift;
+  faPowerOff = faPowerOff; s
   faBars = faBars;
-  faUser = faUserCircle;
-  faCalendarAlt = faCalendarAlt;
-  faEnvelope = faEnvelope;
-  faPaperPlane = faPaperPlane;
+  faUserCircle = faUserCircle;
   faMeetup = faMeetup;
   faGrinAlt = faGrinAlt;
+  faUser = faUser;
 
   ngOnInit() {
     this.userInfo = this.appService.getAdminInfoFromLocalstorage();
-    //console.log(this.userInfo);
     this.getAllUserList();
     this.getOnlineUserList();
 
 
   }
 
-  // public gotoUserList() {
-  //   let el = document.getElementById('userList');
-  //   console.log(el)
-  //   window.location.hash = "#userList";
-  // }
   public getOnlineUserList() {
     this.socketService.getAllOnlineUserList().subscribe(
       data => {
-        //console.log(data);  
         this.userList = [];
         this.getAllUserList();
       }
@@ -72,12 +61,12 @@ export class HomeComponent implements OnInit {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 userId: user.userId,
-                email: user.email
+                email: user.email,
+                profilePic: user.profilePic
               }
               this.userList.push(detail);
             }
           }
-          console.log(this.userList)
         }
       }
     )
@@ -94,14 +83,14 @@ export class HomeComponent implements OnInit {
           this.socketService.disconnect();
 
           setTimeout(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/login']);
           }, 1000)
         }
       },
       (err) => {
         this.toastr.error(err.error.message);
         setTimeout(() => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
         }, 2000)
       }
     )

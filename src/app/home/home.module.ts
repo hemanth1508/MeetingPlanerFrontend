@@ -15,11 +15,14 @@ import { NgxPopperModule } from 'ngx-popper';
 import { RouterModule } from '@angular/router';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
+import { ProfileComponent } from './profile/profile.component';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
 @NgModule({
-  declarations: [HomeComponent, UserDashboardComponent, AdminDashboardComponent],
+  declarations: [HomeComponent, UserDashboardComponent, AdminDashboardComponent, ProfileComponent, PageNotFoundComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -33,11 +36,14 @@ import { DeferLoadModule } from '@trademe/ng-defer-load';
     OwlDateTimeModule,
     DeferLoadModule,
     OwlNativeDateTimeModule,
+    Ng2ImgMaxModule,
 
     RouterModule.forChild([
       { path: 'user-view', component: UserDashboardComponent },
       { path: 'admin-view/:userId', component: AdminDashboardComponent },
-      { path: 'admin-dashboard', component: HomeComponent }
+      { path: 'admin-dashboard', component: HomeComponent },
+      { path: 'profile/:userId', component: ProfileComponent },
+      { path: '**', component: PageNotFoundComponent }
     ])
   ]
 })

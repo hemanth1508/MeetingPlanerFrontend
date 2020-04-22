@@ -1,6 +1,7 @@
 <!-- Navbar starts here -->
 <nav class="navbar navbar-expand-lg navbar-default shadow" style="background-color: #e3f2fd;overflow: hidden;">
-    <a class="navbar-brand" style="color: #24a0ed;cursor: pointer;" (click)="goToHome()">
+    <a class="navbar-brand" style="color: #24a0ed;cursor: pointer;"
+        (click)="goToHome()">
         <fa-icon [icon]="faMeetup"></fa-icon> Meeting planner
     </a>
 
@@ -62,7 +63,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="btn-group" style="margin: 10px;">
+                    <div class="btn-group shadow-lg" style="margin: 10px;">
                         <button class="btn btn-info animate" mwlCalendarPreviousView [view]="view"
                             [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
                             Previous
@@ -82,7 +83,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" [ngSwitch]="view"
                     style="margin-top: 5px;margin-bottom: 20px;">
                     <!-- month view starts here -->
-                    <mwl-calendar-month-view [viewDate]="viewDate" [events]='events' [refresh]="refresh"
+                    <mwl-calendar-month-view class="shadow" [viewDate]="viewDate" [events]='events' [refresh]="refresh"
                         [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
                         (eventClicked)="handleEvent('Clicked', $event.event)"
                         (eventTimesChanged)="eventTimesChanged($event)" *ngSwitchCase="CalendarView.Month">
@@ -143,33 +144,73 @@
 
     <div class="container-fluid">
 
-        <div class="container bg-light my-style">
-            <br>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <button type="button" class="btn btn-outline-info colorbutton animate rounded-pill"
-                        (click)="addEvent()" data-toggle="modal" data-target="#exampleModal">
+        <div class="container bg-light shadow" style="border-radius: 15px;">
+
+            <div class="row" style="padding-top:12px">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center">
+                    <p class="text-muted">
+                        You are viewing <b>
+                            {{this.userInfo[0].firstName}} {{this.userInfo[0].lastName}}'s</b> dashboard</p>
+                </div>
+                <div class="col-6 col-md-5 text-right">
+                    <button type="button" class="btn btn-outline-success animate" (click)="addEvent()"
+                        data-toggle="modal" data-target="#exampleModal">
                         <b>create new event</b>
                     </button>
                 </div>
             </div>
-            <br>
+            <hr style="margin-top:5px;">
             <div class="row" *ngIf='!events.length'>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 extra text-center">
                     <p><b>No events right now. create new event!</b></p>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6 col-lg-4 col-xl-4" *ngFor='let event of events; let index = index'>
+            <div class="row" *ngIf='events.length'>
+                <div class="col-12 col-sm-12 col-md-11 col-lg-10 col-xl-10 extra text-center" style="margin:auto;">
 
-                    <div class=" center name-color cart animate">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Event Title</th>
+                                    <th>Starts at</th>
+                                    <th>Ends at</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor='let event of events; let index = index'>
+                                <tr>
+                                    <td (click)="handleEvent('Clicked',event)">{{ event.title }}</td>
+                                    <td (click)="handleEvent('Clicked',event)">{{ event.start | date:'medium' }}</td>
+                                    <td (click)="handleEvent('Clicked',event)">{{ event.end | date:'medium' }}</td>
+                                    <td>
+                                        <!-- <div class="inline-block" (click)='dynamic(event)' data-toggle="modal"
+                                            data-target="#example"> -->
+                                        <fa-icon [icon]="faEdit" title="update" class="up"
+                                            style="color: #24a0ed; margin-right: 5px;" (click)='dynamic(event)'
+                                            data-toggle="modal" data-target="#example">
+                                        </fa-icon>
+                                        <!-- </div> -->
+                                        <!-- <div class="inline-block" (click)="deleteEvent(event); refresh.next()"> -->
+                                        <fa-icon [icon]="faTrashAlt" title="delete" class="up"
+                                            style="color: tomato; margin-left: 5px;"
+                                            (click)="deleteEvent(event); refresh.next()"></fa-icon>
+                                        <!-- </div> -->
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- <div class=" center name-color cart animate">
                         <h5>{{event.title}} </h5>
                         <p><b>start :</b> {{event.start | date:'medium'}}</p>
                         <p><b>end :</b> {{event.end | date:'medium'}}</p>
                         <button class="btn btn-outline-info colorbutton rounded-pill" (click)='dynamic(event)'
                             data-toggle="modal" data-target="#example"><b>Update</b></button>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
@@ -185,7 +226,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background: #24a0ed;">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: #e3f2fd;"><b>Create new Meeting</b></h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #e3f2fd;"><b>
+                        <fa-icon [icon]="faCalendarAlt"></fa-icon> Create New Meeting
+                    </b></h5>
                 <button type="button" style="color: #e3f2fd;" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -238,7 +281,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background: #24a0ed;">
-                <h5 class="modal-title" style="color: #e3f2fd;" id="exampleModalLabel"><b>View Meeting Schedule</b>
+                <h5 class="modal-title" style="color: #e3f2fd;" id="exampleModalLabel"><b>
+                        <fa-icon [icon]="faCalendarAlt"></fa-icon> Update Meeting Schedule
+                    </b>
                 </h5>
                 <button type="button" style="color: #e3f2fd;" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -282,8 +327,8 @@
                 <button type="button" class="btn btn-outline-secondary " data-dismiss="modal"><b>Close</b></button>
                 <button class="btn btn-outline-info colorbutton " data-dismiss="modal"
                     (click)="sendToUSer(currentEvent); refresh.next()"><b>update</b></button>
-                <button class="btn btn-outline-danger " data-dismiss="modal"
-                    (click)="deleteEvent(currentEvent); refresh.next()"><b>Delete</b></button>
+                <!-- <button class="btn btn-outline-danger " data-dismiss="modal"
+                    (click)="deleteEvent(currentEvent); refresh.next()"><b>Delete</b></button> -->
             </div>
         </div>
     </div>

@@ -73,7 +73,7 @@
                         <br>
                         <label for="inputMobile">Mobile Number</label>
                         <div class="input-group">
-                            <div class="input-group-text" *ngIf='this.country'>+{{countryCode}}</div>
+                            <div class="input-group-text" *ngIf='this.country'><b>+</b>{{countryCode}}</div>
                             <input type="number" id="inputMobile" class="form-control rounded-pill shadow" name="mobile"
                                 [(ngModel)]="mobileNumber" placeholder="enter mobile number" required>
                         </div>

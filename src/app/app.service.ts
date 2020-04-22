@@ -172,4 +172,17 @@ export class AppService {
     return this._http.post(this.baseUrl + '/api/v1/admin/account/verify', params)
   }
 
+  imageUpload(imageForm: FormData) {
+    console.log('image uploading');
+    return this._http.post(this.baseUrl + '/api/v1/user/upload',
+      imageForm);
+  }
+
+  public getDetail = (detail) => {
+    const params = new HttpParams()
+      .set('userId', detail)
+      .set('authToken', Cookie.get('authToken'))
+    return this._http.post(this.baseUrl + '/api/v1/user/get/detail', params)
+  }
+
 }

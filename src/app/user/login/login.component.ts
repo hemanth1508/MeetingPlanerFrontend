@@ -65,9 +65,7 @@ export class LoginComponent implements OnInit {
       this.appService.signInadmin(data)
         .subscribe((apiResponse) => {
 
-          //console.log(apiResponse);
           if (apiResponse.status == 200 && apiResponse.data.adminDetails.activated == true) {
-            //       console.log(apiResponse.data);
             Cookie.set('authToken', apiResponse.data.authToken);
             Cookie.set('loggedInAdmin', apiResponse.data.adminDetails.adminId);
             this.appService.setAdminInfoInLocalStorage(apiResponse.data.adminDetails)
@@ -93,9 +91,6 @@ export class LoginComponent implements OnInit {
 
       this.appService.signIn(data)
         .subscribe((apiResponse) => {
-          //        console.log(apiResponse);
-
-          //console.log(apiResponse);
           if (apiResponse.status == 200 && apiResponse.data.userDetails.activated == true) {
 
             Cookie.set('authToken', apiResponse.data.authToken);
@@ -143,8 +138,6 @@ export class LoginComponent implements OnInit {
 
       this.appService.resetPasswordAdmin(data)
         .subscribe((apiResponse) => {
-
-          //console.log(apiResponse);
           if (apiResponse.status == 200) {
             this.toastr.success('Email has sent to your registered Email ID. Please follow that instructions to reset your password');
             setTimeout(() => {
@@ -167,12 +160,8 @@ export class LoginComponent implements OnInit {
 
       this.appService.resetPassword(data)
         .subscribe((apiResponse) => {
-
-          //console.log(apiResponse);
           if (apiResponse.status == 200) {
             this.toastr.success('Email has sent to your registered Email ID. Please follow that instructions to reset your password');
-
-
             setTimeout(() => {
               this.gotoResetPassword();
             }, 1000);

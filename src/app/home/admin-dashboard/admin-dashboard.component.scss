@@ -1,6 +1,13 @@
 h3 {
     margin: 5px 5x 10px;
   }
+  thead{
+    background: #00c6ff;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color:white;
+    
+  }
 
   .animate{
     transition: all 0.2s ease-in-out;
@@ -30,12 +37,6 @@ h3 {
     font-size:35px;cursor:pointer;
   }
 
-  .my-style{
-    -webkit-box-shadow: 0px 2px 20px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 20px 1px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 20px 1px rgba(0,0,0,0.75);
-     border-radius: 15px;
-  }
   .boxStyle{
     -webkit-box-shadow: 0px 2px 20px 1px #24a0ed;
     -moz-box-shadow: 0px 2px 20px 1px #24a0ed;
@@ -111,3 +112,11 @@ img{
   -moz-box-shadow: 0px 2px 12px -2px #24a0ed;
   box-shadow: 0px 2px 12px -2px #24a0ed;
 }
+
+.name{
+  background:#24a0ed;
+  color:white;
+  padding: 5px 0 5px 0;
+  border-radius: 15px;
+}
+

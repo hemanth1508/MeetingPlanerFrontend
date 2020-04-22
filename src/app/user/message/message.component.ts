@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  faUserPlus, faEnvelope, faPaperPlane, faSignInAlt
+  faUserPlus, faSignInAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { faMeetup } from '@fortawesome/free-brands-svg-icons';
 
@@ -13,8 +13,6 @@ import { faMeetup } from '@fortawesome/free-brands-svg-icons';
 export class MessageComponent implements OnInit {
   faUserPlus = faUserPlus;
   faMeetup = faMeetup;
-  faPaperPlane = faPaperPlane;
-  faEnvelope = faEnvelope;
   faSignInAlt = faSignInAlt;
 
   meetingImage = { url: 'https://edwisor-bucket.s3.ap-south-1.amazonaws.com/meeting/meeting.jpg', show: false };

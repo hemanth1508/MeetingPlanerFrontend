@@ -6,7 +6,6 @@ import {
   faHome, faSignInAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { faMeetup } from '@fortawesome/free-brands-svg-icons';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AppService } from 'src/app/app.service';
 
 @Component({

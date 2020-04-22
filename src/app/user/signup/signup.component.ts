@@ -7,8 +7,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faMeetup } from '@fortawesome/free-brands-svg-icons';
 
-import { trigger, transition, useAnimation } from '@angular/animations';
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

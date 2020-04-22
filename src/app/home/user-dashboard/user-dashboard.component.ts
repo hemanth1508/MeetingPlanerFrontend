@@ -62,6 +62,10 @@ export class UserDashboardComponent implements OnInit {
     this.getReminder();
   }
 
+  public gotoProfile: any = () => {
+    this.router.navigate(['/profile', this.userInfo.userId]);
+  }
+
   public getAllEvents() {
     this.appService.getAllMessage(this.userInfo.userId).subscribe(
       data => {
@@ -143,17 +147,17 @@ export class UserDashboardComponent implements OnInit {
           this.socketService.disconnect();
 
           setTimeout(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/login']);
           }, 2000)
         } else {
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
 
         }
       },
       (err) => {
         this.toastr.error(err.error.message);
         setTimeout(() => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
         }, 2000)
       }
     )

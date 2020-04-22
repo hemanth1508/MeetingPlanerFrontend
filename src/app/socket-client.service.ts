@@ -7,8 +7,8 @@ import io from 'socket.io-client';
   providedIn: 'root'
 })
 export class SocketClientService {
-  //public baseurl = 'http://localhost:3000';
-  public baseurl = 'http://ec2-35-154-221-80.ap-south-1.compute.amazonaws.com:3000';
+  public baseurl = 'http://localhost:3000';
+  //public baseurl = 'http://ec2-35-154-221-80.ap-south-1.compute.amazonaws.com:3000';
   public socket;
   constructor() {
     this.socket = io(this.baseurl);
@@ -64,6 +64,17 @@ export class SocketClientService {
 
     this.socket.emit('stop-reminder', data);
   }
+  public userProfileUpload(data) {
+    this.socket.emit('user-profile-upload', data);
+  }
+  public profileUploaded() {
+    return Observable.create(observer => {
+      this.socket.on('profile-uploaded', data => {
+        observer.next(data);
+      })
+    })
+  }
+
   public notificationFromUser(adminId) {
     return Observable.create((observer) => {
       this.socket.on(adminId, (data) => {
